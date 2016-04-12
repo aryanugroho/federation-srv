@@ -166,3 +166,9 @@ micro query go.micro.srv.federation  Federation.Config
 	}
 }
 ```
+
+## For nostalgic purposes
+
+<p align="center">
+  <img src="butterfly.png" />
+</>
