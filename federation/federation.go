@@ -124,7 +124,7 @@ func (f *federator) federate() {
 
 	// create regional brokers
 	for region, brokers := range config.Brokers {
-		log.Println("Setup region", region)
+		log.Printf("[region:%s] Starting setup\n", region)
 
 		// create publishers
 		for name, plugin := range brokers {
@@ -133,7 +133,7 @@ func (f *federator) federate() {
 				log.Println(err)
 				continue
 			}
-			log.Println("Adding broker", name, plugin.Hosts)
+			log.Printf("[region:%s] Adding broker %s %v\n", region, name, plugin.Hosts)
 			regions[region] = append(regions[region], b)
 		}
 	}
@@ -142,7 +142,7 @@ func (f *federator) federate() {
 	teardown := func() {
 		<-f.exit
 		for region, brokers := range regions {
-			log.Println("Teardown region", region)
+			log.Printf("[region:%s] Teardown\n", region)
 			for _, broker := range brokers {
 				broker.Disconnect()
 			}
@@ -158,11 +158,11 @@ func (f *federator) federate() {
 
 		// make sure there's a rate
 		if tConfig.Rate <= 0.0 {
-			log.Println("Rate is zero for", topic, "skipping")
+			log.Printf("[topic:%s][rate:%v] Rate too low to subscribe\n", topic, tConfig.Rate)
 			continue
 		}
 
-		log.Println("Subscribing to topic", topic, "at rate", tConfig.Rate)
+		log.Printf("[topic:%s][rate:%v] Subscribing\n", topic, tConfig.Rate)
 
 		// create subscriber list
 		for _, sub := range tConfig.Subscribe {
@@ -176,7 +176,7 @@ func (f *federator) federate() {
 
 		for _, sub := range subs {
 			if err := f.sub(topic, tConfig.Rate, sub, pubs); err != nil {
-				log.Println("Failed to subscribe to", topic, "with subscriber", sub.String(), sub.Address(), err.Error())
+				log.Printf("[topic:%s][plugin:%s][addr:%s] Failed to subscribe: %v\n", topic, sub.String(), sub.Address(), err.Error())
 			}
 		}
 	}
@@ -280,7 +280,7 @@ func (f *federator) sub(topic string, rate float64, sub broker.Broker, pubs []br
 		}
 
 		return nil
-	})
+	}, broker.QueueName("federation"))
 
 	// TODO: more resilient behaviou
 	if err != nil {
