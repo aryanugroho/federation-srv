@@ -171,4 +171,4 @@ micro query go.micro.srv.federation  Federation.Config
 
 <p align="center">
   <img src="butterfly.png" />
-</>
+</p>
