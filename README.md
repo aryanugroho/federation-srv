@@ -55,7 +55,7 @@ Example config:
 			},
 			"us-east-1": {
 				"rabbitmq": {
-					"hosts": ["127.0.0.1:10000"]
+					"hosts": ["127.0.0.1:5672"]
 				}
 			},
 			"private-dc": {
@@ -97,3 +97,68 @@ Example config:
 
 Federation
 - Config
+
+### Federation.Config
+
+```shell
+micro query go.micro.srv.federation  Federation.Config
+{
+	"config": {
+		"brokers": {
+			"eu-west-1": {
+				"plugins": {
+					"nats": {
+						"hosts": [
+							"127.0.0.1:4222"
+						]
+					},
+					"nsq": {
+						"hosts": [
+							"127.0.0.1:4150"
+						]
+					}
+				}
+			},
+			"private-dc": {
+				"plugins": {
+					"kafka": {
+						"hosts": [
+							"192.168.99.100:9092"
+						]
+					}
+				}
+			},
+			"us-east-1": {
+				"plugins": {
+					"rabbitmq": {
+						"hosts": [
+							"127.0.0.1:5672"
+						]
+					}
+				}
+			}
+		},
+		"topics": {
+			"events": {
+				"publish": [
+					"us-east-1",
+					"private-dc"
+				],
+				"rate": 1,
+				"subscribe": [
+					"eu-west-1"
+				]
+			},
+			"messages": {
+				"publish": [
+					"eu-west-1"
+				],
+				"rate": 0.1,
+				"subscribe": [
+					"us-east-1"
+				]
+			}
+		}
+	}
+}
+```
