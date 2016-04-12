@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+service Federation {
+	rpc Config(ConfigRequest) returns (ConfigResponse) {}
+}
+
+message Config {
+	map<string,Topic> topics = 1;
+	map<string,Broker> brokers = 2;
+}
+
+message Topic {
+	double rate = 1;
+	repeated string publish = 2;
+	repeated string subscribe = 3;
+}
+
+message Plugin {
+	repeated string hosts = 2;
+}
+
+message Broker {
+	map<string,Plugin> plugins = 1;
+}
+
+message ConfigRequest {}
+
+message ConfigResponse {
+	Config config = 1;
+}

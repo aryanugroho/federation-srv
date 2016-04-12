@@ -1,0 +1,47 @@
+{
+	"federation": {
+		"topics": {
+			"events": {
+				"rate": 1.0,
+				"subscribe": [
+					"eu-west-1"
+
+				],
+				"publish": [
+					"us-east-1",
+					"private-dc"
+				]
+			},
+			"messages": {
+				"rate": 0.1,
+				"subscribe": [
+					"us-east-1"
+
+				],
+				"publish": [
+					"eu-west-1"
+				]
+			}
+		},
+		"brokers": {
+			"eu-west-1": {
+				"nsq": {
+					"hosts": ["127.0.0.1:4150"]
+				},
+				"nats": {
+					"hosts": ["127.0.0.1:4222"]
+				}
+			},
+			"us-east-1": {
+				"rabbitmq": {
+					"hosts": ["127.0.0.1:10000"]
+				}
+			},
+			"private-dc": {
+				"kafka": {
+					"hosts": ["192.168.99.100:9092"]
+				}
+			}
+		}
+	}
+}
