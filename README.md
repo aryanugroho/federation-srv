@@ -3,6 +3,10 @@
 The federation service is a mechanism for federating messages globally agnostic of the underlying architecture or topology. 
 Federation relies on the pluggable go-micro broker which means the message bus can be swapped out without changing the code.
 
+<p align="center">
+  <img src="federation.png" />
+</p>
+
 ## Prerequisites
 
 The federation service depends on a config source which can be set with `--config_source`. It current accepts 'file' or 'platform' 
