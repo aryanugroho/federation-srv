@@ -10,9 +10,9 @@ import (
 	"github.com/micro/federation-srv/federation"
 	"github.com/micro/federation-srv/handler"
 
+	proto "github.com/micro/federation-srv/proto/federation"
 	"github.com/micro/go-platform/config"
 	"github.com/micro/go-platform/config/source/file"
-	proto "github.com/micro/federation-srv/proto/federation"
 )
 
 var (
@@ -58,7 +58,7 @@ func main() {
 
 				log.Println("Using file source:", fileName)
 				source = file.NewSource(config.SourceName(fileName))
-			case default:
+			default:
 				fileName := defaultFile
 
 				if len(parts) > 1 {
