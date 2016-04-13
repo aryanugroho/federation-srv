@@ -183,6 +183,8 @@ func (f *federator) federate() {
 }
 
 func (f *federator) update() {
+	log.Println("Updating federator config")
+
 	// extract the config first
 	c, err := f.extract()
 	if err != nil {
@@ -215,6 +217,7 @@ func (f *federator) run(w config.Watcher, c Config) {
 	f.start()
 
 	for {
+		log.Println("Waiting for next federator config change")
 		// wait for next config change
 		_, err := w.Next()
 		if err != nil {
@@ -335,6 +338,10 @@ func Init(c config.Config, s micro.Service) {
 
 // Run starts the federator
 func Run() error {
+	if err := defaultFederator.config.Start(); err != nil {
+		return err
+	}
+
 	// watch path starting at federation
 	log.Println("Watching path", "federation")
 
