@@ -338,10 +338,6 @@ func Init(c config.Config, s micro.Service) {
 
 // Run starts the federator
 func Run() error {
-	if err := defaultFederator.config.Start(); err != nil {
-		return err
-	}
-
 	// watch path starting at federation
 	log.Println("Watching path", "federation")
 
