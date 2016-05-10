@@ -283,7 +283,7 @@ func (f *federator) sub(topic string, rate float64, sub broker.Broker, pubs []br
 		}
 
 		return nil
-	}, broker.QueueName("federation"))
+	}, broker.Queue("federation"))
 
 	// TODO: more resilient behaviou
 	if err != nil {
