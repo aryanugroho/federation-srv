@@ -11,8 +11,8 @@ import (
 	"github.com/micro/federation-srv/handler"
 
 	proto "github.com/micro/federation-srv/proto/federation"
-	"github.com/micro/go-platform/config"
-	"github.com/micro/go-platform/config/source/file"
+	"github.com/micro/go-os/config"
+	"github.com/micro/go-os/config/source/file"
 )
 
 var (

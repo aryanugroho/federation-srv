@@ -5,8 +5,8 @@ import (
 	"time"
 
 	"github.com/micro/federation-srv/federation"
-	"github.com/micro/go-platform/config"
-	"github.com/micro/go-platform/config/source/file"
+	"github.com/micro/go-os/config"
+	"github.com/micro/go-os/config/source/file"
 
 	"github.com/micro/go-micro/broker"
 	"github.com/micro/go-micro/broker/http"
